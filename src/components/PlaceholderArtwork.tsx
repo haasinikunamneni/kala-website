@@ -19,7 +19,7 @@ function mulberry32(seed: number) {
   };
 }
 
-export function PlaceholderArtwork({ title, artForm, palette, className = "", seed = 1 }: PlaceholderArtworkProps) {
+export function PlaceholderArtwork({ title, palette, className = "", seed = 1 }: PlaceholderArtworkProps) {
   const rand = mulberry32(seed * 7919);
   const [base, mid, accent] = palette;
   const rings = Array.from({ length: 5 }).map((_, i) => ({
