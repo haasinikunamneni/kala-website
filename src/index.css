@@ -1,0 +1,289 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-ivory: #f7e7d9;
+  --color-beige: #efd9c4;
+  --color-charcoal: #1d1d1b;
+  --color-gold: #bb9569;
+  --color-terracotta: #b95d3f;
+  --color-walnut: #4a3427;
+
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'Inter', sans-serif;
+
+  --text-fluid-eyebrow: clamp(0.7rem, 0.65rem + 0.2vw, 0.8125rem);
+  --text-fluid-eyebrow--line-height: 1.4;
+  --text-fluid-body: clamp(0.875rem, 0.83rem + 0.2vw, 1rem);
+  --text-fluid-body--line-height: 1.7;
+  --text-fluid-h4: clamp(1.25rem, 1.05rem + 0.9vw, 1.75rem);
+  --text-fluid-h4--line-height: 1.25;
+  --text-fluid-h3: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem);
+  --text-fluid-h3--line-height: 1.2;
+  --text-fluid-h2: clamp(1.875rem, 1.4rem + 2.2vw, 3rem);
+  --text-fluid-h2--line-height: 1.12;
+  --text-fluid-h1: clamp(2.5rem, 1.6rem + 4.2vw, 5rem);
+  --text-fluid-h1--line-height: 1.05;
+
+  --tracking-widest2: 0.25em;
+
+  --ease-gallery: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+/* Tailwind 4 now tints placeholders with the text colour; keep the original soft grey. */
+@layer base {
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-gray-400);
+  }
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  background-color: #F7E7D9;
+  color: #1D1D1B;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: #B6905A;
+  color: #F7E7D9;
+}
+
+/* thin gold scrollbar, gallery-quiet */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #F7E7D9;
+}
+::-webkit-scrollbar-thumb {
+  background: #EFD9C4;
+  border-radius: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid #B6905A;
+  outline-offset: 3px;
+}
+
+/* Discover the Collection — idols "picked up" off the surface on hover.
+   Shadow is cast down-right, as if lit from the upper-left (~11 o'clock). */
+.idol-figure {
+  filter: drop-shadow(6px 8px 4px rgba(58, 52, 46, 0.38));
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.idol-link:hover .idol-figure,
+.idol-link:focus-visible .idol-figure {
+  transform: translateY(-16px) scale(1.06);
+  filter: drop-shadow(22px 34px 14px rgba(58, 52, 46, 0.22));
+}
+
+/* --------------------------------------------------------------------------
+   KALA HOMEPAGE HERO
+   The entire editorial scene is a single generated background image.
+   All website UI remains live HTML layered above it.
+   -------------------------------------------------------------------------- */
+.kala-hero {
+  background: #d7b98e;
+  isolation: isolate;
+}
+
+.kala-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.kala-hero-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  user-select: none;
+}
+
+.kala-hero-content {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100svh;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.kala-hero-copy {
+  width: min(620px, 45vw);
+  margin-top: -6.2vh;
+  color: #17130f;
+  text-shadow: 0 1px 1px rgba(255, 246, 228, 0.18);
+}
+
+.kala-hero-eyebrow {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.42em;
+  padding-left: 0.42em;
+  color: rgba(43, 35, 28, 0.72);
+}
+
+.kala-hero-title {
+  margin: 26px 0 0;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(48px, 5vw, 76px);
+  font-weight: 400;
+  line-height: 0.94;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.kala-hero-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 25px auto 25px;
+  color: rgba(57, 46, 36, 0.72);
+}
+
+.kala-hero-ornament span {
+  width: 72px;
+  height: 1px;
+  background: rgba(57, 46, 36, 0.38);
+}
+
+.kala-hero-description {
+  margin: 0 auto;
+  max-width: 560px;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(18px, 1.45vw, 23px);
+  line-height: 1.25;
+  color: rgba(45, 36, 28, 0.82);
+}
+
+.kala-hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 34px;
+  margin-top: 31px;
+}
+
+.kala-primary-cta {
+  display: inline-flex;
+  white-space: nowrap;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 27px;
+  border-radius: 3px;
+  background: #171512;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.19em;
+  text-decoration: none;
+  transition: transform 220ms ease, background 220ms ease;
+}
+
+.kala-primary-cta:hover {
+  background: #28241f;
+  transform: translateY(-1px);
+}
+
+.kala-story-cta {
+  white-space: nowrap;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(23, 21, 18, 0.55);
+  color: #171512;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.19em;
+  text-decoration: none;
+  transition: border-color 220ms ease, opacity 220ms ease;
+}
+
+.kala-story-cta:hover {
+  border-color: #171512;
+  opacity: 0.68;
+}
+
+@media (max-width: 900px) {
+  .kala-hero-copy {
+    width: min(560px, 52vw);
+  }
+}
+
+@media (max-width: 767px) {
+  .kala-hero {
+    min-height: 100svh;
+  }
+
+  .kala-hero-copy {
+    width: min(92vw, 440px);
+    margin-top: -4vh;
+    padding: 0 4px;
+  }
+
+  .kala-hero-title {
+    font-size: clamp(43px, 12vw, 58px);
+  }
+
+  .kala-hero-description {
+    font-size: 17px;
+  }
+
+  .kala-hero-description br {
+    display: none;
+  }
+
+  .kala-hero-actions {
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+}
+
+.kala-primary-cta:focus-visible,
+.kala-story-cta:focus-visible {
+  outline: 2px solid #171512;
+  outline-offset: 4px;
+}
