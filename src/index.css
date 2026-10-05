@@ -19,7 +19,7 @@
   --text-fluid-h4--line-height: 1.25;
   --text-fluid-h3: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem);
   --text-fluid-h3--line-height: 1.2;
-  --text-fluid-h2: clamp(1.875rem, 1.4rem + 2.2vw, 3rem);
+  --text-fluid-h2: clamp(2rem, 1.4rem + 2.2vw, 3rem);
   --text-fluid-h2--line-height: 1.12;
   --text-fluid-h1: clamp(2.5rem, 1.6rem + 4.2vw, 5rem);
   --text-fluid-h1--line-height: 1.05;
@@ -286,4 +286,123 @@ body {
 .kala-story-cta:focus-visible {
   outline: 2px solid #171512;
   outline-offset: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   KALA MOBILE HERO (< 768px) — phone-only composition, same hero image.
+   The image keeps its natural 1557:1010 proportions. It is rendered 170vw wide
+   and shifted left by 11vw so the Krishna painting (upper-left) and the
+   blue/gold tree painting (lower-left) stay on the left, and the empty sunlit
+   wall fills the right ~42%, where the live copy sits. Everything is in vw so the
+   composition is identical at 375 / 390 / 414 / 430.
+   Tune the three variables below to nudge the crop.
+   The desktop hero (.kala-hero) is untouched and hidden below md.
+   -------------------------------------------------------------------------- */
+.kala-m-hero {
+  --m-img-w: 170vw;      /* image width; height follows the native aspect ratio */
+  --m-img-x: -11vw;      /* horizontal offset: more negative = pan right */
+  --m-copy-left: 57%;    /* left edge of the copy column (right of the tree painting) */
+  background: #d7b98e;
+  padding-top: 64px;     /* clear the fixed mobile navbar (h-16) */
+  isolation: isolate;
+}
+
+.kala-m-scene {
+  position: relative;
+  width: 100%;
+  height: calc(var(--m-img-w) * 1010 / 1557);
+  overflow: hidden;
+}
+
+.kala-m-scene-img {
+  position: absolute;
+  top: 0;
+  left: var(--m-img-x);
+  width: var(--m-img-w);
+  max-width: none;
+  height: auto;
+  user-select: none;
+}
+
+.kala-m-copy {
+  position: absolute;
+  z-index: 2;
+  top: 6vw;
+  left: var(--m-copy-left);
+  right: 3.5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #17130f;
+}
+
+.kala-m-eyebrow {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(6.5px, 1.85vw, 10px);
+  line-height: 1.5;
+  letter-spacing: 0.24em;
+  padding-left: 0.24em;
+  color: rgba(43, 35, 28, 0.78);
+}
+
+.kala-m-title {
+  margin: 2.8vw 0 0;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(20px, 6vw, 40px);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+}
+
+.kala-m-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 3.2vw 0;
+  color: rgba(57, 46, 36, 0.72);
+}
+
+.kala-m-ornament span {
+  width: 18px;
+  height: 1px;
+  background: rgba(57, 46, 36, 0.4);
+}
+
+.kala-m-description {
+  margin: 0;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(11px, 3.05vw, 17px);
+  line-height: 1.3;
+  color: rgba(45, 36, 28, 0.85);
+  text-wrap: balance;
+}
+
+.kala-m-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 3.4vw;
+  width: 100%;
+  margin-top: 4vw;
+}
+
+.kala-m-cta {
+  display: block;           /* keeps the arrow inline with the wrapped label */
+  min-height: 40px;
+  padding: 11px 8px;
+  white-space: normal;      /* may wrap onto two lines inside the narrow wall */
+  text-align: center;
+  font-size: 8px;
+  line-height: 1.45;
+  letter-spacing: 0.13em;
+}
+
+.kala-m-story {
+  align-self: center;
+  padding-bottom: 3px;
+  font-size: 8px;
+  letter-spacing: 0.15em;
 }

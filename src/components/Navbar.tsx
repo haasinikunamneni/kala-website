@@ -22,7 +22,11 @@ export function Navbar() {
 
   // On the homepage the bar stays fully transparent until the hero has scrolled away.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > (isHome ? window.innerHeight * 0.85 : 24));
+    // Below md the mobile hero is a short editorial block (not full-screen), so use the small threshold.
+    const onScroll = () => {
+      const fullBleedHero = isHome && window.innerWidth >= 768;
+      setScrolled(window.scrollY > (fullBleedHero ? window.innerHeight * 0.85 : 24));
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
@@ -40,14 +44,14 @@ export function Navbar() {
       className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow] duration-500 ease-gallery ${
         scrolled || open
           ? "bg-ivory/95 shadow-[0_1px_0_0_rgba(29,29,27,0.08)] backdrop-blur-[2px]"
-          : "bg-transparent"
+          : "bg-ivory max-md:shadow-[0_1px_0_0_rgba(29,29,27,0.06)] md:bg-transparent"
       }`}
     >
       <div className="relative">
         {/* Centre grid: equal side columns keep the logo on the true page centre. */}
         <nav
           aria-label="Primary"
-          className="mx-auto grid max-w-[1440px] grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center px-4 py-3 md:px-6 lg:py-4"
+          className="mx-auto grid max-w-[1440px] grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center px-5 py-2.5 max-md:h-16 max-md:py-0 md:px-6 md:py-3 lg:py-4"
         >
           <ul className="hidden items-center justify-end gap-4 pr-4 md:flex lg:gap-[30px] lg:pr-8">
             {links.slice(0, 3).map((l) => (
@@ -58,12 +62,12 @@ export function Navbar() {
           <Link
             to="/"
             aria-label="Kalā home"
-            className="col-start-1 row-start-1 flex items-center md:col-start-2 md:justify-center"
+            className="col-start-1 row-start-1 flex items-center max-md:absolute max-md:left-1/2 max-md:top-1/2 max-md:-translate-x-1/2 max-md:-translate-y-1/2 md:col-start-2 md:justify-center"
           >
             <img
               src={kalaLogo}
               alt="Kalā"
-              className="h-16 w-16 object-contain mix-blend-multiply md:h-[88px] md:w-[88px] lg:h-24 lg:w-24"
+              className="h-[52px] w-[52px] object-contain mix-blend-multiply md:h-[88px] md:w-[88px] lg:h-24 lg:w-24"
             />
           </Link>
 
@@ -74,15 +78,25 @@ export function Navbar() {
           </ul>
         </nav>
 
+        {/* Phones: menu control pinned left; logo is absolutely centred on the viewport. */}
+        <button
+          className="focus-ring absolute inset-y-0 left-2 flex w-11 items-center justify-center md:hidden"
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
+          onClick={() => setOpen((o) => !o)}
+        >
+          {open ? <X className="h-6 w-6" strokeWidth={1.5} /> : <Menu className="h-6 w-6" strokeWidth={1.5} />}
+        </button>
+
         {/* Utility icons pinned to the page edge, independent of the centred grid. */}
-        <div className="absolute inset-y-0 right-4 flex items-center gap-5 md:right-6 lg:right-10 lg:gap-6">
+        <div className="absolute inset-y-0 right-2 flex items-center gap-5 md:right-6 lg:right-10 lg:gap-6">
           <Link to="/collections" aria-label="Search collections" className="hidden focus-ring lg:block">
             <Search className="h-[18px] w-[18px] text-black" strokeWidth={1.4} />
           </Link>
-          <Link to="/cart" aria-label="View cart" className="relative focus-ring">
+          <Link to="/cart" aria-label="View cart" className="relative focus-ring max-md:flex max-md:h-11 max-md:w-11 max-md:items-center max-md:justify-center">
             <ShoppingBag className="h-[18px] w-[18px] text-black" strokeWidth={1.5} />
             {count > 0 && (
-              <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-terracotta text-[10px] text-ivory">
+              <span className="absolute -right-2 -top-2 flex h-4 w-4 max-md:right-1 max-md:top-1 items-center justify-center rounded-full bg-terracotta text-[10px] text-ivory">
                 {count}
               </span>
             )}
@@ -90,14 +104,6 @@ export function Navbar() {
           <Link to="/contact" aria-label="Account and contact" className="hidden focus-ring lg:block">
             <User className="h-[18px] w-[18px] text-black" strokeWidth={1.4} />
           </Link>
-          <button
-            className="focus-ring md:hidden"
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-            onClick={() => setOpen((o) => !o)}
-          >
-            {open ? <X className="h-6 w-6" strokeWidth={1.5} /> : <Menu className="h-6 w-6" strokeWidth={1.5} />}
-          </button>
         </div>
       </div>
 

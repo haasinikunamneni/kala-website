@@ -32,15 +32,15 @@ export function Home() {
 
       {/* Featured Collection — Odisha Pattachitra */}
       {/* Why Kala */}
-      <section className="bg-beige px-6 py-24 md:px-10">
+      <section className="bg-beige px-6 py-16 md:px-10 md:py-24">
         <div className="mx-auto max-w-7xl">
           <SectionHeading eyebrow="Why kalā" title="Every Piece Tells The Truth" align="center" />
-          <div className="mx-auto mt-14 grid max-w-4xl gap-10 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mx-auto mt-14 grid max-w-4xl grid-cols-2 gap-x-6 gap-y-11 sm:gap-10 lg:grid-cols-4">
             {whyKala.map((w) => (
               <div key={w.title} className="text-center">
-                <w.icon className="mx-auto h-7 w-7 text-gold" strokeWidth={1.25} />
-                <h3 className="mt-5 font-display text-xl text-charcoal">{w.title}</h3>
-                <p className="mt-2 font-body text-sm leading-relaxed text-charcoal/65">{w.text}</p>
+                <w.icon className="mx-auto h-6 w-6 text-gold md:h-7 md:w-7" strokeWidth={1.25} />
+                <h3 className="mt-4 font-display text-[19px] text-charcoal md:mt-5 md:text-xl">{w.title}</h3>
+                <p className="mx-auto mt-2 max-w-[19ch] font-body text-[14px] leading-[1.6] text-charcoal/65 sm:max-w-none md:text-sm md:leading-relaxed">{w.text}</p>
               </div>
             ))}
           </div>
@@ -50,11 +50,11 @@ export function Home() {
       <DiscoverCollection />
 
       {/* In Your Home — lifestyle / in-situ shots */}
-      <section className="bg-ivory px-6 py-24 md:px-10">
+      <section className="bg-ivory px-6 py-16 md:px-10 md:py-24">
         <div className="mx-auto max-w-7xl">
           <div className="grid items-end gap-6 md:grid-cols-2">
             <SectionHeading eyebrow="See It Living" title="In Your Home" />
-            <p className="max-w-md font-body text-[15px] leading-relaxed text-charcoal/65 md:text-right">
+            <p className="hidden max-w-md font-body text-[15px] leading-relaxed text-charcoal/65 md:block md:text-right">
               Framed, hung, and photographed in real interiors — so you can see the true
               scale, texture, and craftsmanship of each piece before it arrives at your door.
             </p>
@@ -85,7 +85,7 @@ export function Home() {
       </section>
 
       {/* Meet the Artisan */}
-      <section className="bg-beige px-6 py-24 md:px-10">
+      <section className="bg-beige px-6 py-16 md:px-10 md:py-24">
         <div className="mx-auto max-w-7xl">
           <div className="grid items-center gap-12 md:grid-cols-2">
             <div className="order-2 md:order-1">
@@ -113,16 +113,23 @@ export function Home() {
               </div>
             </div>
             <div className="order-1 md:order-2">
-              <SectionHeading eyebrow="From Their Hands To Yours" title="Meet The Artisan" />
-              <p className="mt-6 max-w-md font-body text-[15px] leading-relaxed text-charcoal/70">
+              {/* Desktop / laptop: full artisan story (unchanged). */}
+              <div className="hidden md:block">
+                <SectionHeading eyebrow="From Their Hands To Yours" title="Meet The Artisan" />
+              </div>
+              {/* Mobile: short supplier-focused introduction; the story stays in the DOM data for md+. */}
+              <div className="md:hidden">
+                <SectionHeading eyebrow="From Their Hands To Yours" title="Meet Our Suppliers" />
+              </div>
+              <p className="mt-6 hidden max-w-md font-body text-[15px] leading-relaxed text-charcoal/70 md:block">
                 {localSuppliers[0]?.history}
               </p>
-              <p className="mt-4 max-w-md font-body text-[15px] leading-relaxed text-charcoal/70">
+              <p className="mt-4 hidden max-w-md font-body text-[15px] leading-relaxed text-charcoal/70 md:block">
                 {localSuppliers[0]?.artisanStory}
               </p>
               <Link
                 to="/suppliers"
-                className="mt-8 inline-flex items-center font-body text-[13px] uppercase tracking-widest2 text-terracotta hover:text-gold"
+                className="mt-8 hidden items-center font-body text-[13px] uppercase tracking-widest2 text-terracotta hover:text-gold md:inline-flex"
               >
                 Meet Our Suppliers →
               </Link>
@@ -132,7 +139,7 @@ export function Home() {
       </section>
 
       {/* Featured Paintings */}
-      <section className="bg-ivory px-6 py-24 md:px-10">
+      <section className="bg-ivory px-6 py-16 md:px-10 md:py-24">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <SectionHeading eyebrow="The Current Collection" title="Featured Artworks" />
@@ -149,7 +156,7 @@ export function Home() {
       </section>
 
       {/* Instagram preview */}
-      <section className="bg-beige px-6 py-24 md:px-10">
+      <section className="bg-beige px-6 py-16 md:px-10 md:py-24">
         <div className="mx-auto max-w-7xl">
           <SectionHeading eyebrow={settings.instagram_handle} title="From The Gallery Floor" align="center" />
           <div className="mx-auto mt-12 grid max-w-4xl grid-cols-2 gap-4 sm:grid-cols-4">

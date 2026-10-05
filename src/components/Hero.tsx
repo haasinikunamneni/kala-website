@@ -11,7 +11,77 @@ import heroGeneratedBg from "../assets/hero-generated-bg.png";
  */
 export function Hero() {
   return (
-    <section className="kala-hero relative min-h-svh overflow-hidden">
+    <>
+      <MobileHero />
+      <DesktopHero />
+    </>
+  );
+}
+
+/**
+ * Phone composition (< md). Uses the SAME gallery image as desktop, but placed
+ * deliberately: the image keeps its natural proportions (no cover-crop), is
+ * offset so the Krishna and tree paintings sit on the left, and the large empty
+ * sunlit wall on the right carries the live hero copy. No card, blur or overlay.
+ * Positioning is driven by vw units in index.css (.kala-m-*), so the composition
+ * scales identically across phone widths.
+ */
+function MobileHero() {
+  return (
+    <section className="kala-m-hero md:hidden" aria-labelledby="kala-m-hero-title">
+      <div className="kala-m-scene">
+        <img
+          src={heroGeneratedBg}
+          alt="Sunlit gallery wall with framed Pattachitra paintings"
+          className="kala-m-scene-img"
+          fetchPriority="high"
+          decoding="async"
+          draggable={false}
+        />
+
+        <div className="kala-m-copy">
+          <p className="kala-m-eyebrow">HANDPAINTED HERITAGE</p>
+
+          <h1 id="kala-m-hero-title" className="kala-m-title">
+            Timeless
+            <br />
+            Art for
+            <br />
+            Modern Homes
+          </h1>
+
+          <div className="kala-m-ornament" aria-hidden="true">
+            <span />
+            <svg width="16" height="12" viewBox="0 0 28 20" fill="none">
+              <path d="M14 2C16 4.2 17 6.7 17 9.1C17 14 14 18 14 18C14 18 11 14 11 9.1C11 6.7 12 4.2 14 2Z" stroke="currentColor" strokeWidth="1.6" />
+              <path d="M14 18C10.7 16.2 8 13.4 7 9.7C6.2 6.7 6.8 4.4 6.8 4.4C9.8 5.2 12 6.7 13.5 8.6" stroke="currentColor" strokeWidth="1.6" />
+              <path d="M14 18C17.3 16.2 20 13.4 21 9.7C21.8 6.7 21.2 4.4 21.2 4.4C18.2 5.2 16 6.7 14.5 8.6" stroke="currentColor" strokeWidth="1.6" />
+            </svg>
+            <span />
+          </div>
+
+          <p className="kala-m-description">
+            Original Pattachitra paintings and limited edition prints, bringing India’s living
+            heritage into contemporary spaces.
+          </p>
+
+          <div className="kala-m-actions">
+            <Link to="/collections" className="kala-primary-cta kala-m-cta">
+              EXPLORE OUR COLLECTION <span aria-hidden="true" className="kala-cta-arrow">→</span>
+            </Link>
+            <Link to="/about" className="kala-story-cta kala-m-story">
+              OUR STORY
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DesktopHero() {
+  return (
+    <section className="kala-hero relative hidden min-h-svh overflow-hidden md:block">
       {/* Generated editorial scene — visual background only. */}
       <div className="kala-hero-bg" aria-hidden="true">
         <img
